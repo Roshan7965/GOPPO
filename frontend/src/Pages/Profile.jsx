@@ -15,6 +15,7 @@ const Profile = () => {
   let [name, setName] = useState(userData.name || "");
   let [frontendImage, setFrontendImage] = useState(userData.image || assets.dp);
   let [backendImage, setBackendImage] = useState(null);
+ 
   let image = useRef();
   const [saving, setSaving] = useState(false);
 
@@ -22,6 +23,7 @@ const Profile = () => {
     let file = e.target.files[0];
     setBackendImage(file);
     setFrontendImage(URL.createObjectURL(file));
+    console.log(backendImage);
   };
 
   const handleProfile = async (e) => {
