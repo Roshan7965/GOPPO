@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { backendUrl } from "../main";
+import { useDispatch } from "react-redux";
+import { setUserData } from "../redux/userSlice";
 
 const Login = () => {
 
@@ -11,12 +13,14 @@ const Login = () => {
   const [loading,setloading]=useState(false);
   const [err,setErr]=useState("");
 
+  let dispatch=useDispatch();
+
   const handleLogin=async(e)=>{
        setloading(true);
       e.preventDefault();
       try {
-        let result= await axios.post(`${backendUrl}/api/auth/login`,{email,password});
-        console.log(result);
+        let result= await axios.post(`${backendUrl}/api/auth/login`,{email,password},{withCredentials:true});
+        dispatch(setUserData(result.data));
         setloading(false);
         setErr("");
       } catch (error) {

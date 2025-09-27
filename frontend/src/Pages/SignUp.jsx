@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { backendUrl } from "../main";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserData } from "../redux/userSlice";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -11,6 +13,9 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
+  let dispatch=useDispatch();
+  let {userData}=useSelector(state=>state.user);
+  console.log(userData);
 
   const handleSignUp = async (e) => {
     if (!userName || !email || !password) {
@@ -30,7 +35,7 @@ const Signup = () => {
         },
         { withCredentials: true }
       );
-      console.log(result.data);
+      dispatch(setUserData(result.data));
       setLoading(false);
       setErr("");
     } catch (error) {

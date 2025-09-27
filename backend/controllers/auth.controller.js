@@ -42,7 +42,7 @@ export const signup = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      sameSite: "none",
+      sameSite: "Strict",
       maxAge: 2 * 24 * 60 * 60 * 1000,
       secure: false, // make true when you deploy the project on render etc paltform
     });
@@ -60,6 +60,7 @@ export const signup = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
+    
 
     let user = await User.findOne({ email });
 
@@ -80,7 +81,7 @@ export const login = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      sameSite: "none",
+      sameSite: "Strict",
       maxAge: 2 * 24 * 60 * 60 * 1000,
       secure: false, // make true when you deploy the project on render etc paltform
     });
